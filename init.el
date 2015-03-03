@@ -1,3 +1,4 @@
+;hi, mitchell! this is a magit test
 ;this is a test of magit.
 
 (tool-bar-mode -1)
