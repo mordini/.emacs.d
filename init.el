@@ -128,6 +128,15 @@ sunrise-commander
 
 
 ;special functions
+(defun indent-buffer ()                                                                                                                                                            
+  "Indents an entire buffer using the default intenting scheme."                                                                                                                   
+  (interactive)                                                                                                                                                                    
+  (save-excursion                                                                                                                                                                  
+    (delete-trailing-whitespace)                                                                                                                                                   
+    (indent-region (point-min) (point-max) nil)                                                                                                                                    
+    (untabify (point-min) (point-max))))
+(global-set-key "\C-x\\" 'indent-buffer)
+
   (defun uniquify-all-lines-region (start end)
     "Find duplicate lines in region START to END keeping first occurrence."
     (interactive "*r")
