@@ -1,3 +1,5 @@
+;pjb: C-h i m Emacs Lisp Intro RET
+
 ;create function to insert comment
 ;matching curly braces
 ;maybe later make it language-aware?
@@ -400,11 +402,25 @@ sunrise-commander
          (matching-text (and cb
     (char-equal (char-syntax cb) ?\) )
     (blink-matching-open))))
-    ;(when matching-text (message matching-text))
     (when matching-text (message matching-text))
     )
-)
+  )
 
+;pjb: notice that C-mode has it's own electric brace, so you have to evaluate the local-set-key after setting the mode (eg. in a mode hook).
+(defun pjb-electric-close-brace ()
+  (interactive)
+  ;(insert "}")
+  (let ((pt (point)))
+    (backward-list)
+    (let ((head (buffer-substring (save-excursion (beginning-of-line) (point))
+                                  (point))))
+      (goto-char pt)
+      (insert " // Matches " head))))
+;(local-set-key (kbd "}") 'pjb-electric-close-brace)
+
+(global-unset-key (kbd "C-/"))
+(local-unset-key (kbd "C-/"))
+(global-set-key (kbd "C-/") 'pjb-electric-close-brace)
 
 (global-set-key (kbd "C-z") 'undo)
 ;(setq visible-bell 1)
