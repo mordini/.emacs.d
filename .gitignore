@@ -32,3 +32,6 @@ tramp
 
 # cask packages
 .cask/
+
+# Scratchpad for Personal Testing
+scratchpad.el
