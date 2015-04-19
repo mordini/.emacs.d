@@ -29,8 +29,8 @@
                      magit
                      multi-web-mode
                      multiple-cursors
-                     php-extras
-                     php-mode
+                     ;;php-extras
+                     ;;php-mode
                      popup
                      s
                      simple-httpd
@@ -97,7 +97,7 @@
  '(custom-enabled-themes nil)
  '(custom-safe-themes
    (quote
-    ("4e262566c3d57706c70e403d440146a5440de056dfaeb3062f004da1711d83fc" "57f8801351e8b7677923c9fe547f7e19f38c99b80d68c34da6fa9b94dc6d3297" default))))
+    ("a041a61c0387c57bb65150f002862ebcfe41135a3e3425268de24200b82d6ec9" "4e262566c3d57706c70e403d440146a5440de056dfaeb3062f004da1711d83fc" "57f8801351e8b7677923c9fe547f7e19f38c99b80d68c34da6fa9b94dc6d3297" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -117,16 +117,16 @@
 ;;---------------;;
 ;;---------------;;
 
-(setq mac-function-modifier 'super)
-(setq mac-option-modifier 'hyper)
-(setq mac-command-modifier 'meta)
+;;(setq mac-function-modifier 'super)
+;;(setq mac-option-modifier 'hyper)
+;;(setq mac-command-modifier 'meta)
 
 ;;(setq mac-function-modifier 'super)
 ;;(setq mac-command-modifier 'hyper)
 
 ;;uncomment when remoting
-(setq w32-lwindow-modifier 'meta)
-(setq w32-alt-modifier 'meta)
+;;(setq w32-lwindow-modifier 'meta)
+;;(setq w32-alt-modifier 'meta)
 
 ;;use when at work for set rectangular region anchor
 ;;(setq w32-lwindow-modifier 'hyper)
@@ -185,7 +185,7 @@
 (global-set-key (kbd "<f13>") 'switch-to-minibuffer-window)
 (global-set-key "\C-x\\" 'indent-buffer)
 
-;;switch windows with C-x w instead of C-x 5 o
+;;switch windows with C-x ` instead of C-x 5 o
 (global-set-key (kbd "C-`") 'other-frame)
 ;;ediff buffers shortcut
 (global-set-key (kbd "M-]") 'ediff-buffers)
@@ -196,6 +196,9 @@
 (global-set-key (kbd "C-/") 'pjb-electric-close-brace)
 (global-set-key (kbd "C-z") 'undo)
 
+;;unset C-x C-c for using emacs as server
+(global-unset-key (kbd "C-x C-c") )
+(global-set-key (kbd "C-x C-c") 'server-edit)
 
 ;;-----------;;
 ;;-----------;;
@@ -368,7 +371,7 @@
 (global-set-key (kbd "M-<down>") 'mc/mark-all-like-this)
 (global-set-key (kbd "M-<up>") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-M-<up>") 'set-rectangular-region-anchor)
-(global-set-key (kbd "M-[") 'set-rectangular-region-anchor) ; this line is for when on work machine
+;;(global-set-key (kbd "M-[") 'set-rectangular-region-anchor) ; this line is for when on work machine
 (global-set-key (kbd "C-S-p") 'mc/mark-pop)
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
