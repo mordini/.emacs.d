@@ -182,6 +182,10 @@
 ;;-------------;;
 ;;-------------;;
 
+;;replace dabbrev
+(global-unset-key (kbd "M-/"))
+(global-set-key (kbd "M-/") 'hippie-expand)
+
 (global-set-key (kbd "<f13>") 'switch-to-minibuffer-window)
 (global-set-key "\C-x\\" 'indent-buffer)
 
@@ -197,8 +201,8 @@
 (global-set-key (kbd "C-z") 'undo)
 
 ;;unset C-x C-c for using emacs as server
-(global-unset-key (kbd "C-x C-c") )
-(global-set-key (kbd "C-x C-c") 'server-edit)
+;;(global-unset-key (kbd "C-x C-c") )
+;;(global-set-key (kbd "C-x C-c") 'server-edit)
 
 ;;-----------;;
 ;;-----------;;
