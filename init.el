@@ -182,6 +182,8 @@
 ;;-------------;;
 ;;-------------;;
 
+(global-set-key (kbd "C-c D")  'delete-file-and-buffer)
+
 ;;replace dabbrev
 (global-unset-key (kbd "M-/"))
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -209,6 +211,18 @@
 ;; Functions ;;
 ;;-----------;;
 ;;-----------;;
+
+(defun delete-file-and-buffer ()
+  "Kill the current buffer and deletes the file it is visiting."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (when filename
+      (if (vc-backend filename)
+          (vc-delete-file filename)
+        (progn
+          (delete-file filename)
+          (message "Deleted file %s" filename)
+          (kill-buffer))))))
 
 (defun uniquify-all-lines-region (start end)
   "Find duplicate lines in region START to END keeping first occurrence."
