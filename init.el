@@ -180,6 +180,8 @@
 ;;-------------;;
 ;;-------------;;
 
+(global-set-key (kbd "C-.")  'copy-whole-buffer)
+
 (global-set-key (kbd "C-x RET")  'eval-buffer)
 
 (global-set-key (kbd "C-c D")  'delete-file-and-buffer)
@@ -211,6 +213,11 @@
 ;; Functions ;;
 ;;-----------;;
 ;;-----------;;
+
+(defun copy-whole-buffer ()
+    "Copy entire buffer to clipboard"
+    (interactive)
+    (clipboard-kill-ring-save (point-min) (point-max)))
 
 (defun delete-file-and-buffer ()
   "Kill the current buffer and deletes the file it is visiting."
