@@ -217,7 +217,8 @@
 (defun copy-whole-buffer ()
     "Copy entire buffer to clipboard"
     (interactive)
-    (clipboard-kill-ring-save (point-min) (point-max)))
+    (clipboard-kill-ring-save (point-min) (point-max))
+    (message "Copied whole buffer"))
 
 (defun delete-file-and-buffer ()
   "Kill the current buffer and deletes the file it is visiting."
