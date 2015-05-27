@@ -443,7 +443,7 @@
 ;;------------------------;;
 
 ;;icicles! learn regexps
-(add-to-list 'load-path "/my/path/to/icicles/")
+(add-to-list 'load-path "~/.emacs.d/elpa/icicles-20150518.406")
 (require 'icicles)
 (icy-mode 1)
 
