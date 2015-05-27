@@ -23,7 +23,8 @@
                      color-theme
                      dash
                      expand-region
-                     impatient-mode
+		     icicles
+		     impatient-mode
                      htmlize
                      simple-httpd
                      magit
@@ -434,6 +435,17 @@
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 
+
+;;------------------------;;
+;;------------------------;;
+;; add-to-list Extensions ;;
+;;------------------------;;
+;;------------------------;;
+
+;;icicles! learn regexps
+(add-to-list 'load-path "/my/path/to/icicles/")
+(require 'icicles)
+(icy-mode 1)
 
 ;;------------;;
 ;;------------;;
