@@ -6,6 +6,7 @@
 	delete-horizontal-space
 	electric-newline-and-maybe-indent
 	forward-sentence
+	icicle-yank-maybe-completing
 	indent-for-tab-command
 	kill-region
 	toggle-input-method
