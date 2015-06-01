@@ -460,6 +460,10 @@
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
+;;C-x F to view source
+(require 'find-func)
+(find-function-setup-keys)
+
 
 ;;----------;;
 ;;----------;;
