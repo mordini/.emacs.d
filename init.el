@@ -23,6 +23,7 @@
                      color-theme
                      dash
                      expand-region
+		     flycheck
 		     icicles
 		     impatient-mode
                      htmlize
@@ -499,6 +500,16 @@
 (setq erc-echo-notices-in-minibuffer-flag t)
 (require 'erc-match)
 (setq erc-keywords '("test" "emacs"))
+
+
+;;--------------------;;
+;;--------------------;;
+;; add-hook for modes ;;
+;;--------------------;;
+;;--------------------;;
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
 
 ;;------------;;
 ;;------------;;
