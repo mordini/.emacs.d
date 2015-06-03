@@ -233,6 +233,8 @@
 ;;-------------;;
 ;;-------------;;
 
+(global-set-key (kbd "M-9")  'kill-whole-line)
+
 (global-set-key (kbd "C-.")  'copy-whole-buffer)
 
 (global-set-key (kbd "C-x RET")  'eval-buffer)
