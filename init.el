@@ -160,7 +160,7 @@
 
 ;;(setq mac-function-modifier 'super)
 ;;(setq mac-option-modifier 'hyper)
-;;(setq mac-command-modifier 'meta)
+(setq mac-command-modifier 'meta)
 
 ;;(setq mac-function-modifier 'super)
 ;;(setq mac-command-modifier 'hyper)
@@ -508,7 +508,7 @@
 ;;--------------------;;
 ;;--------------------;;
 
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;;(add-hook 'after-init-hook #'global-flycheck-mode)
 
 
 ;;------------;;
