@@ -114,7 +114,7 @@
  '(magit-diff-use-overlays nil)
  '(magit-use-overlays nil)
  '(package-selected-packages (quote (auto-auto-indent)))
- '(scroll-all-mode t)
+ ;;'(scroll-all-mode t)
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -158,9 +158,13 @@
 ;;---------------;;
 ;;---------------;;
 
+ ;;trying to set capslock to CTRL, regardless of OS
+(setq mac-capslock-modifier 'ctrl)
+
 ;;(setq mac-function-modifier 'super)
 ;;(setq mac-option-modifier 'hyper)
 (setq mac-command-modifier 'meta)
+
 
 ;;(setq mac-function-modifier 'super)
 ;;(setq mac-command-modifier 'hyper)
