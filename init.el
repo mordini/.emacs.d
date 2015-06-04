@@ -32,7 +32,7 @@
                      multi-web-mode
                      multiple-cursors
 		     nyan-mode
-		     nyan-promptx
+		     nyan-prompt
 		     ;;php-extras
                      ;;php-mode
                      popup
