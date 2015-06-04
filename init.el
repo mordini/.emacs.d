@@ -31,7 +31,9 @@
                      magit
                      multi-web-mode
                      multiple-cursors
-                     ;;php-extras
+		     nyan-mode
+		     nyan-promptx
+		     ;;php-extras
                      ;;php-mode
                      popup
                      s
@@ -273,6 +275,11 @@
 ;;-----------;;
 ;;-----------;;
 
+(defun kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+
 (defun copy-whole-buffer ()
     "Copy entire buffer to clipboard"
     (interactive)
@@ -487,6 +494,14 @@
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 
+;;NYAN-MODE!
+(nyan-mode 1)
+;;(setq nyan-wavy-trail t)
+;;(nyan-start-animation)
+;;(nyan-stop-animation)
+
+;;NYAN-PROMPT!
+(add-hook 'eshell-load-hook 'nyan-prompt-enable)
 
 ;;------------------------;;
 ;;------------------------;;
@@ -497,7 +512,7 @@
 ;;icicles! learn regexps
 (add-to-list 'load-path "~/.emacs.d/elpa/icicles-20150518.406")
 (require 'icicles)
-(icy-mode 1)
+;;(icy-mode 1)
 
 ;;IRC! :D
 ;;start with M-x erc-select
