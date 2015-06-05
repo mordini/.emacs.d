@@ -239,13 +239,15 @@
 ;;-------------;;
 ;;-------------;;
 
-(global-set-key (kbd "M-9")  'kill-whole-line)
+(global-set-key (kbd "C-x <C-return>") 'eval-buffer)
 
-(global-set-key (kbd "C-.")  'copy-whole-buffer)
+(global-set-key (kbd "M-9") 'kill-whole-line)
 
-(global-set-key (kbd "C-x RET")  'eval-buffer)
+(global-set-key (kbd "C-.") 'copy-whole-buffer)
 
-(global-set-key (kbd "C-c D")  'delete-file-and-buffer)
+(global-set-key (kbd "C-x RET") 'scroll-all-mode)
+
+(global-set-key (kbd "C-c D") 'delete-file-and-buffer)
 
 ;;replace dabbrev
 (global-unset-key (kbd "M-/"))
