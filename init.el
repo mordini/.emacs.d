@@ -24,6 +24,8 @@
                      dash
                      expand-region
 		     flycheck
+		     ;;GOD MODE TESTING
+		     god-mode
 		     icicles
 		     impatient-mode
                      htmlize
@@ -513,6 +515,11 @@
 ;; add-to-list Extensions ;;
 ;;------------------------;;
 ;;------------------------;;
+
+;;nethack! I'm very excited about these extensions ^_^
+;;(add-to-list 'load-path "/usr/lib/games/nethack")
+;;(autoload 'nethack "nethack" "Play Nethack." t)
+;;(setq nethack-program "/usr/lib/games/nethack")
 
 ;;icicles! learn regexps
 (add-to-list 'load-path "~/.emacs.d/elpa/icicles-20150518.406")
