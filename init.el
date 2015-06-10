@@ -239,6 +239,9 @@
 ;;-------------;;
 ;;-------------;;
 
+;;unbound for tmux to use
+(global-unset-key (kbd "C-]"))
+
 (global-set-key (kbd "C-x <C-return>") 'eval-buffer)
 
 (global-set-key (kbd "M-9") 'kill-whole-line)
