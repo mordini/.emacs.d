@@ -24,6 +24,8 @@
                      dash
                      expand-region
 		     flycheck
+		     ;;GOD MODE TESTING
+		     god-mode
 		     icicles
 		     impatient-mode
                      htmlize
@@ -240,13 +242,18 @@
 ;;-------------;;
 ;;-------------;;
 
-(global-set-key (kbd "M-9")  'kill-whole-line)
+;;unbound for tmux to use
+(global-unset-key (kbd "C-]"))
 
-(global-set-key (kbd "C-.")  'copy-whole-buffer)
+(global-set-key (kbd "C-x <C-return>") 'eval-buffer)
 
-(global-set-key (kbd "C-x RET")  'eval-buffer)
+(global-set-key (kbd "M-9") 'kill-whole-line)
 
-(global-set-key (kbd "C-c D")  'delete-file-and-buffer)
+(global-set-key (kbd "C-.") 'copy-whole-buffer)
+
+(global-set-key (kbd "C-x RET") 'scroll-all-mode)
+
+(global-set-key (kbd "C-c D") 'delete-file-and-buffer)
 
 ;;replace dabbrev
 (global-unset-key (kbd "M-/"))
@@ -509,6 +516,11 @@
 ;; add-to-list Extensions ;;
 ;;------------------------;;
 ;;------------------------;;
+
+;;nethack! I'm very excited about these extensions ^_^
+;;(add-to-list 'load-path "/usr/lib/games/nethack")
+;;(autoload 'nethack "nethack" "Play Nethack." t)
+;;(setq nethack-program "/usr/lib/games/nethack")
 
 ;;icicles! learn regexps
 (add-to-list 'load-path "~/.emacs.d/elpa/icicles-20150518.406")
