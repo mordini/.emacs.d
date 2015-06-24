@@ -29,8 +29,9 @@
                      htmlize
                      simple-httpd
                      magit
-                     multi-web-mode
+		     multi-web-mode
                      multiple-cursors
+		     mc-extras
 		     nyan-mode
 		     nyan-prompt
 		     ;;php-extras
