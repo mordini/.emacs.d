@@ -30,7 +30,9 @@
 		     impatient-mode
                      htmlize
                      simple-httpd
-                     magit
+		     slime
+		     slime-repl
+		     magit
 		     multi-web-mode
                      multiple-cursors
 		     mc-extras
@@ -245,13 +247,17 @@
 ;;unbound for tmux to use
 (global-unset-key (kbd "C-]"))
 
-(global-set-key (kbd "C-x <C-return>") 'eval-buffer)
+;;changed
+;;(global-set-key (kbd "C-x <C-return>") 'eval-buffer)
+(global-set-key (kbd "C-x RET") 'eval-buffer)
+
+;;removed to not conflict with eval-buffer
+;;wasn't cooperating
+;;(global-set-key (kbd "C-x RET") 'scroll-all-mode)
 
 (global-set-key (kbd "M-9") 'kill-whole-line)
 
 (global-set-key (kbd "C-.") 'copy-whole-buffer)
-
-(global-set-key (kbd "C-x RET") 'scroll-all-mode)
 
 (global-set-key (kbd "C-c D") 'delete-file-and-buffer)
 
@@ -371,6 +377,20 @@
 ;; Modes ;;
 ;;-------;;
 ;;-------;;
+
+
+;;------------------;;
+;; begin slime-mode ;;
+;;------------------;;
+
+(setq inferior-lisp-program "clisp")
+(require 'slime)
+(slime-setup)
+
+
+;;----------------;;
+;; end slime-mode ;;
+;;----------------;;
 
 
 ;;----------------;;
