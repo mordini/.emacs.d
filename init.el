@@ -26,7 +26,8 @@
 		     flycheck
 		     ;;GOD MODE TESTING
 		     god-mode
-		     icicles
+		     helm
+		     ;;icicles
 		     impatient-mode
                      htmlize
                      simple-httpd
@@ -569,8 +570,8 @@
 ;;(setq nethack-program "/usr/lib/games/nethack")
 
 ;;icicles! learn regexps
-(add-to-list 'load-path "~/.emacs.d/elpa/icicles-20150518.406")
-(require 'icicles)
+;;(add-to-list 'load-path "~/.emacs.d/elpa/icicles-20150518.406")
+;;(require 'icicles)
 ;;(icy-mode 1)
 
 ;;IRC! :D
