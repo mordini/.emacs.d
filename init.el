@@ -23,23 +23,23 @@
                      color-theme
                      dash
                      expand-region
-		     flycheck
-		     ;;GOD MODE TESTING
-		     god-mode
-		     helm
-		     ;;icicles
-		     impatient-mode
+                     flycheck
+                     ;;GOD MODE TESTING
+                     god-mode
+                     helm
+                     ;;icicles
+                     impatient-mode
                      htmlize
                      simple-httpd
-		     ;;slime
-		     ;;slime-repl
-		     magit
-		     multi-web-mode
+                     ;;slime
+                     ;;slime-repl
+                     magit
+                     multi-web-mode
                      multiple-cursors
-		     mc-extras
-		     nyan-mode
-		     nyan-prompt
-		     ;;php-extras
+                     mc-extras
+                     nyan-mode
+                     nyan-prompt
+                     ;;php-extras
                      ;;php-mode
                      popup
                      s
@@ -166,7 +166,7 @@
 ;;---------------;;
 ;;---------------;;
 
- ;;trying to set capslock to CTRL, regardless of OS
+;;trying to set capslock to CTRL, regardless of OS
 (setq mac-capslock-modifier 'ctrl)
 
 ;;(setq mac-function-modifier 'super)
@@ -236,8 +236,8 @@
   ;; This is the elisp code that is run before `terminal-init-screen'.
   (if (getenv "TMUX")
       (let ((map (copy-keymap xterm-function-map)))
-	(set-keymap-parent map (keymap-parent input-decode-map))
-	    (set-keymap-parent input-decode-map map))))
+        (set-keymap-parent map (keymap-parent input-decode-map))
+        (set-keymap-parent input-decode-map map))))
 
 ;;-------------;;
 ;;-------------;;
@@ -290,16 +290,37 @@
 ;;-----------;;
 ;;-----------;;
 
+(defun another-line (num-lines)
+  "Copies line, preserving cursor column, and increments any numbers found.
+  Copies a block of optional NUM-LINES lines.  If no optional argument is given,
+  then only one line is copied."
+  (interactive "p")
+  (if (not num-lines) (setq num-lines 0) (setq num-lines (1- num-lines)))
+  (let* ((col (current-column))
+         (bol (save-excursion (forward-line (- num-lines)) (beginning-of-line) (point)))
+         (eol (progn (end-of-line) (point)))
+         (line (buffer-substring bol eol)))
+    (goto-char bol)
+    (while (re-search-forward "[0-9]+" eol 1)
+      (let ((num (string-to-int (buffer-substring
+                                 (match-beginning 0) (match-end 0)))))
+        (replace-match (int-to-string (1+ num))))
+      (setq eol (save-excursion (goto-char eol) (end-of-line) (point))))
+    (goto-char bol)
+    (insert line "\n")
+    (move-to-column col)))
+(define-key global-map (kbd "M-o") 'another-line)
+
 (defun kill-other-buffers ()
   "Kill all other buffers."
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
 (defun copy-whole-buffer ()
-    "Copy entire buffer to clipboard"
-    (interactive)
-    (clipboard-kill-ring-save (point-min) (point-max))
-    (message "Copied whole buffer"))
+  "Copy entire buffer to clipboard"
+  (interactive)
+  (clipboard-kill-ring-save (point-min) (point-max))
+  (message "Copied whole buffer"))
 
 (defun delete-file-and-buffer ()
   "Kill the current buffer and deletes the file it is visiting."
@@ -531,6 +552,9 @@
       helm-ff-file-name-history-use-recentf t)
 
 (helm-mode 1)
+
+(define-key helm-find-files-map (kbd "<C-backspace>") 'backward-kill-word)
+;;(define-key helm-projectile-find-file-map (kbd "<C-backspace>") 'backward-kill-word)
 
 
 
