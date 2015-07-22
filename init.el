@@ -122,7 +122,7 @@
  '(magit-diff-use-overlays nil)
  '(magit-use-overlays nil)
  '(package-selected-packages (quote (auto-auto-indent)))
- ;;'(scroll-all-mode t)
+ '(temporary-file-directory "c:/Users/developer/AppData/Local/Temp/")
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -290,6 +290,35 @@
 ;;-----------;;
 ;;-----------;;
 
+
+;;
+;;CHANGE HTML COMMENT FUNCTIONS TO DETECT PREVIOUS OPEN THEN DELETE MATCH
+;;THIS VERSION IS TEMPORARY
+;;
+(defun html-comment-line ()
+  "HTML Comment current line, go to next line, beginning of line"
+  (interactive)
+  (back-to-indentation)
+  (insert "<!--")
+  (move-end-of-line nil)
+  (insert "-->")
+  (next-line)
+  (back-to-indentation))
+
+(defun html-uncomment-line ()
+  "HTML Uncomment current line, go to next line, beginning of line"
+  (interactive)
+  (back-to-indentation)
+  (delete-forward-char 4)
+  (move-end-of-line nil)
+  (delete-backward-char 3)
+  (next-line)
+  (back-to-indentation))
+
+;;MAKE OPPOSITE OF HTML-COMMENT-LINE
+(global-set-key (kbd "C-?") 'html-comment-line)
+(global-set-key (kbd "M-?") 'html-uncomment-line)
+
 (defun another-line (num-lines)
   "Copies line, preserving cursor column, and increments any numbers found.
   Copies a block of optional NUM-LINES lines.  If no optional argument is given,
@@ -409,6 +438,13 @@
 ;;(require 'slime)
 ;;(slime-setup)
 
+;;(require 'slime)
+;;(add-hook 'lisp-mode-hook (lambda () (slime-mode t)))
+;;(add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode t)))
+;; Optionally, specify the lisp program you are using. Default is "lisp"
+;;(setq inferior-lisp-program "clisp")
+;;(setq inferior-lisp-program "C:\\Users\\developer\\AppData\\Roaming\\clisp-2.49\\clisp")
+(setq inferior-lisp-program "clisp")
 
 ;;----------------;;
 ;; end slime-mode ;;
@@ -505,6 +541,9 @@
 ;; Special ;;
 ;;---------;;
 ;;---------;;
+
+(require 'browse-kill-ring)
+(global-set-key (kbd "C-c k") 'browse-kill-ring)
 
 ;;begin multiple-cursors
 (require 'multiple-cursors)
