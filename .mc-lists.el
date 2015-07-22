@@ -6,10 +6,13 @@
 	delete-horizontal-space
 	electric-newline-and-maybe-indent
 	forward-sentence
+	html-comment-line
 	icicle-yank-maybe-completing
 	indent-for-tab-command
 	kill-region
+	nxml-electric-slash
 	toggle-input-method
+	yank-rectangle
 	))
 
 (setq mc/cmds-to-run-once
