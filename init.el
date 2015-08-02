@@ -16,7 +16,8 @@
 
 (setq package-list '(monokai-theme
                      auto-auto-indent
-                     es-lib
+		     browse-kill-ring
+		     es-lib
                      auto-complete
                      popup
                      auto-indent-mode
