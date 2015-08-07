@@ -317,8 +317,8 @@
   (back-to-indentation))
 
 ;;MAKE OPPOSITE OF HTML-COMMENT-LINE
-(global-set-key (kbd "C-?") 'html-comment-line)
-(global-set-key (kbd "M-?") 'html-uncomment-line)
+(global-set-key (kbd "M-?") 'html-comment-line)
+(global-set-key (kbd "C-?") 'html-uncomment-line)
 
 (defun another-line (num-lines)
   "Copies line, preserving cursor column, and increments any numbers found.
