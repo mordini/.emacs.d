@@ -123,7 +123,8 @@
  '(magit-diff-use-overlays nil)
  '(magit-use-overlays nil)
  '(package-selected-packages (quote (auto-auto-indent)))
- '(temporary-file-directory "c:/Users/developer/AppData/Local/Temp/")
+ ;;'(temporary-file-directory "c:/Users/developer/AppData/Local/Temp/")
+ '(temporary-file-directory "c:/Users/paul/AppData/Local/Temp/")
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
