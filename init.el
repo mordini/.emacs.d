@@ -108,7 +108,7 @@
  '(compilation-message-face (quote default))
  '(custom-safe-themes
    (quote
-    ("05c3bc4eb1219953a4f182e10de1f7466d28987f48d647c01f1f0037ff35ab9a" "a041a61c0387c57bb65150f002862ebcfe41135a3e3425268de24200b82d6ec9" default)))
+    ("30b7087fdd149a523aa614568dc6bacfab884145f4a67d64c80d6011d4c90837" "05c3bc4eb1219953a4f182e10de1f7466d28987f48d647c01f1f0037ff35ab9a" "a041a61c0387c57bb65150f002862ebcfe41135a3e3425268de24200b82d6ec9" default)))
  '(fci-rule-color "#49483E")
  '(highlight-changes-colors ("#FD5FF0" "#AE81FF"))
  '(highlight-tail-colors
@@ -123,7 +123,6 @@
  '(magit-diff-use-overlays nil)
  '(magit-use-overlays nil)
  '(package-selected-packages (quote (auto-auto-indent)))
- ;;'(temporary-file-directory "c:/Users/developer/AppData/Local/Temp/")
  '(temporary-file-directory "c:/Users/paul/AppData/Local/Temp/")
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
@@ -615,13 +614,15 @@
 (show-paren-mode 1)
 
 ;;NYAN-MODE!
-(nyan-mode 1)
+(when (display-graphic-p)
+  (nyan-mode 1))
 ;;(setq nyan-wavy-trail t)
 ;;(nyan-start-animation)
 ;;(nyan-stop-animation)
 
 ;;NYAN-PROMPT!
-(add-hook 'eshell-load-hook 'nyan-prompt-enable)
+(when (display-graphic-p)
+  (add-hook 'eshell-load-hook 'nyan-prompt-enable))
 
 ;;------------------------;;
 ;;------------------------;;
