@@ -97,7 +97,6 @@
   (lambda (item)
     (add-to-list 'custom-theme-load-path item)))
 
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -108,7 +107,7 @@
  '(compilation-message-face (quote default))
  '(custom-safe-themes
    (quote
-    ("05c3bc4eb1219953a4f182e10de1f7466d28987f48d647c01f1f0037ff35ab9a" "a041a61c0387c57bb65150f002862ebcfe41135a3e3425268de24200b82d6ec9" default)))
+    ("196cc00960232cfc7e74f4e95a94a5977cb16fd28ba7282195338f68c84058ec" "05c3bc4eb1219953a4f182e10de1f7466d28987f48d647c01f1f0037ff35ab9a" "a041a61c0387c57bb65150f002862ebcfe41135a3e3425268de24200b82d6ec9" default)))
  '(fci-rule-color "#49483E")
  '(highlight-changes-colors ("#FD5FF0" "#AE81FF"))
  '(highlight-tail-colors
@@ -123,8 +122,7 @@
  '(magit-diff-use-overlays nil)
  '(magit-use-overlays nil)
  '(package-selected-packages (quote (auto-auto-indent)))
- ;;'(temporary-file-directory "c:/Users/developer/AppData/Local/Temp/")
- '(temporary-file-directory "c:/Users/paul/AppData/Local/Temp/")
+ '(temporary-file-directory "c:/Users/developer/AppData/Local/Temp/")
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -247,6 +245,9 @@
 ;;-------------;;
 ;;-------------;;
 
+;;for annoying reports
+(global-set-key (kbd "C-,") 'delete-trailing-whitespace)
+
 ;;unbound for tmux to use
 (global-unset-key (kbd "C-]"))
 
@@ -262,7 +263,7 @@
 
 (global-set-key (kbd "C-.") 'copy-whole-buffer)
 
-(global-set-key (kbd "C-c D") 'delete-file-and-buffer)
+(global-set-key (kbd "C-c D") 'kill-buffer-and-delete-file)
 
 ;;replace dabbrev
 (global-unset-key (kbd "M-/"))
@@ -292,6 +293,10 @@
 ;;-----------;;
 ;;-----------;;
 
+;;create a temporary buffer
+(defun generate-buffer ()
+  (interactive)
+  (switch-to-buffer (make-temp-name "scratch")))
 
 ;;
 ;;CHANGE HTML COMMENT FUNCTIONS TO DETECT PREVIOUS OPEN THEN DELETE MATCH
@@ -353,7 +358,7 @@
   (clipboard-kill-ring-save (point-min) (point-max))
   (message "Copied whole buffer"))
 
-(defun delete-file-and-buffer ()
+(defun kill-buffer-and-delete-file ()
   "Kill the current buffer and deletes the file it is visiting."
   (interactive)
   (let ((filename (buffer-file-name)))
@@ -406,7 +411,6 @@
       (goto-char pt)
       (insert " // Matches " head))))
 ;;(local-set-key (kbd "}") 'pjb-electric-close-brace)
-
 
 ;; Replace "yes or no" with y or n
 (defun yes-or-no-p (arg)
@@ -551,6 +555,7 @@
 (require 'multiple-cursors)
 (global-set-key (kbd "M-n") 'mc/mark-next-like-this)
 (global-set-key (kbd "M-p") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-'") 'mc/mark-all-like-this)
 (global-set-key (kbd "M-<down>") 'mc/mark-all-like-this)
 (global-set-key (kbd "M-<up>") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-M-<up>") 'set-rectangular-region-anchor)
@@ -568,7 +573,6 @@
 ;;C-x F to view source
 (require 'find-func)
 (find-function-setup-keys)
-
 
 (require 'helm)
 (require 'helm-config)
@@ -656,6 +660,44 @@
 
 ;;(add-hook 'after-init-hook #'global-flycheck-mode)
 
+;;-----------------;;
+;;-----------------;;
+;; feature testing ;;
+;;-----------------;;
+;;-----------------;;
+
+(eval-after-load "sql"
+  (load-library "sql-indent"))
+
+;; haskell packages
+;; NO FRILLS
+(dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
+  (when (fboundp mode) (funcall mode -1)))
+(setq inhibit-startup-screen t)
+;; NO JUNK
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+      backup-directory-alist `((".*" . ,temporary-file-directory)))
+;; EL-GET
+(add-to-list 'load-path (locate-user-emacs-file "el-get/el-get"))
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+(defun el-get-sync-recipes (overlay)
+  (let* ((recipe-glob (locate-user-emacs-file (concat overlay "/recipes/*.rcp")))
+         (recipe-files (file-expand-wildcards recipe-glob))
+         (recipes (mapcar 'el-get-read-recipe-file recipe-files)))
+    (mapcar (lambda (r) (add-to-list 'el-get-sources r)) recipes)
+    (el-get 'sync (mapcar 'el-get-source-name recipes))))
+(setq el-get-user-package-directory user-emacs-directory)
+;; EL-GET SYNC OVERLAYS
+(el-get-sync-recipes "el-get-haskell")
+(el-get-sync-recipes "el-get-user")
+;; CUSTOM FILE
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(load custom-file 'noerror)
 
 ;;------------;;
 ;;------------;;
