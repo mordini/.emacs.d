@@ -678,6 +678,14 @@
 (eval-after-load "sql"
   (load-library "sql-indent"))
 
+(defun pretty-print-sgml-do-all ()
+    "change modes, pretty print, tab all"
+    (interactive)
+    (sgml-mode)
+    (sgml-pretty-print (point-min) (point-max))
+    (mark-whole-buffer)
+    (indent-for-tab-command))
+
 ;; haskell packages
 ;; NO FRILLS
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
