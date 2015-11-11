@@ -27,6 +27,7 @@
                      flycheck
                      ;;GOD MODE TESTING
                      god-mode
+                     ghc
                      helm
                      ;;icicles
                      impatient-mode
@@ -693,32 +694,57 @@
     (copy-whole-buffer)
     (message "Prettified, Indented, and Copied whole buffer!"))
 
-;; haskell packages
-;; NO FRILLS
-(dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
-  (when (fboundp mode) (funcall mode -1)))
-(setq inhibit-startup-screen t)
-;; NO JUNK
-(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
-      backup-directory-alist `((".*" . ,temporary-file-directory)))
-;; EL-GET
-(add-to-list 'load-path (locate-user-emacs-file "el-get/el-get"))
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-(defun el-get-sync-recipes (overlay)
-  (let* ((recipe-glob (locate-user-emacs-file (concat overlay "/recipes/*.rcp")))
-         (recipe-files (file-expand-wildcards recipe-glob))
-         (recipes (mapcar 'el-get-read-recipe-file recipe-files)))
-    (mapcar (lambda (r) (add-to-list 'el-get-sources r)) recipes)
-    (el-get 'sync (mapcar 'el-get-source-name recipes))))
-(setq el-get-user-package-directory user-emacs-directory)
-;; EL-GET SYNC OVERLAYS
-(el-get-sync-recipes "el-get-haskell")
-(el-get-sync-recipes "el-get-user")
+;; haskell mode/cabal repl
+(autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-debug "ghc" nil t)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+(eval-after-load 'haskell-mode '(progn
+  (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+  (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+  (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
+  (define-key haskell-mode-map (kbd "C-c C-n C-i") 'haskell-process-do-info)
+  (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
+  (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)))
+(eval-after-load 'haskell-cabal '(progn
+  (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
+  (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-ode-clear)
+  (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+  (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
+
+(custom-set-variables
+ '(haskell-interactive-mode-hide-multi-line-errors nil)
+ '(haskell-process-log t)
+ '(haskell-process-type (quote cabal-repl)))
+
+;;;; haskell packages
+;;;; NO FRILLS
+;;(dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
+;;  (when (fboundp mode) (funcall mode -1)))
+;;(setq inhibit-startup-screen t)
+;;;; NO JUNK
+;;(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+;;      backup-directory-alist `((".*" . ,temporary-file-directory)))
+;;;; EL-GET
+;;(add-to-list 'load-path (locate-user-emacs-file "el-get/el-get"))
+;;(unless (require 'el-get nil 'noerror)
+;;  (with-current-buffer
+;;      (url-retrieve-synchronously
+;;       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+;;    (goto-char (point-max))
+;;    (eval-print-last-sexp)))
+;;(defun el-get-sync-recipes (overlay)
+;;  (let* ((recipe-glob (locate-user-emacs-file (concat overlay "/recipes/*.rcp")))
+;;         (recipe-files (file-expand-wildcards recipe-glob))
+;;         (recipes (mapcar 'el-get-read-recipe-file recipe-files)))
+;;    (mapcar (lambda (r) (add-to-list 'el-get-sources r)) recipes)
+;;    (el-get 'sync (mapcar 'el-get-source-name recipes))))
+;;(setq el-get-user-package-directory user-emacs-directory)
+;;;; EL-GET SYNC OVERLAYS
+;;(el-get-sync-recipes "el-get-haskell")
+;;(el-get-sync-recipes "el-get-user")
+
 ;; CUSTOM FILE
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file 'noerror)
