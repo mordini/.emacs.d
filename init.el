@@ -684,7 +684,9 @@
     (sgml-mode)
     (sgml-pretty-print (point-min) (point-max))
     (mark-whole-buffer)
-    (indent-for-tab-command))
+    (indent-for-tab-command)
+    (copy-whole-buffer)
+    (message "Prettified, Indented, and Copied whole buffer!"))
 
 ;; haskell packages
 ;; NO FRILLS
