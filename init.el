@@ -625,6 +625,11 @@
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 
+(setq-default indent-tabs-mode nil)
+;;(setq-default tab-width 2)
+;;(setq indent-line-function 'insert-tab)
+(setq js-indent-level 2)
+
 ;;NYAN-MODE!
 (when (display-graphic-p)
   (nyan-mode 1))
