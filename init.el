@@ -60,6 +60,7 @@
                      sunrise-commander
                      sunrise-x-tree
                      sunrise-commander
+                     sql-indent
                      ))
 
 
