@@ -15,6 +15,7 @@
  version-control t)       ; use versioned backups
 
 (setq package-list '(monokai-theme
+                     farmhouse-theme
                      auto-auto-indent
 		     browse-kill-ring
 		     es-lib
@@ -757,4 +758,5 @@
 ;;------------;;
 
 
-(load-theme 'monokai)
+;;(load-theme 'monokai)
+(load-theme 'farmhouse-dark)
