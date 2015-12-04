@@ -652,6 +652,12 @@
 (when (display-graphic-p)
   (add-hook 'eshell-load-hook 'nyan-prompt-enable))
 
+;;truncate when in SQLi mode
+(add-hook 'sql-interactive-mode-hook
+          (lambda ()
+            (toggle-truncate-lines t)))
+
+
 ;;------------------------;;
 ;;------------------------;;
 ;; add-to-list Extensions ;;
