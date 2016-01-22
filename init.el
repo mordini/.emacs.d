@@ -17,8 +17,8 @@
 (setq package-list '(monokai-theme
                      farmhouse-theme
                      auto-auto-indent
-		     browse-kill-ring
-		     es-lib
+                     browse-kill-ring
+                     es-lib
                      auto-complete
                      popup
                      auto-indent-mode
@@ -304,6 +304,47 @@
 ;;-----------;;
 ;;-----------;;
 
+(defun align-repeat (start end regexp)
+    "Repeat alignment with respect to
+     the given regular expression."
+    (interactive "r\nsAlign regexp: ")
+    (align-regexp start end
+        (concat "\\(\\s-*\\)" regexp) 1 1 t))
+
+(defun change-outer (str)
+  (interactive "sChange outer: ")
+  (condition-case nil
+      (search-backward str (line-beginning-position))
+    (error (search-forward str (line-end-position))
+       (forward-char -1)))
+  (kill-sexp)
+)
+
+;; delete commas
+(defun delete-commas (str)
+  (interactive "sChange outer: ")
+  (condition-case nil
+      (search-backward str (line-beginning-position))
+    (error (search-forward str (line-end-position))
+       (forward-char -1)))
+  (kill-sexp)
+)
+
+
+(defun change-inner (str)
+  (interactive "sChange inner: ")
+  (condition-case nil
+      (search-backward str (line-beginning-position))
+    (error (search-forward str (line-end-position))
+       (forward-char -1)))
+  (push-mark)
+  (forward-sexp)
+  (forward-char -1)
+  (exchange-point-and-mark)
+  (forward-char 1)
+  (kill-region (point) (mark))
+)
+
 ;;;WORK ON ME!
 (defun increment-numbers ()
   "increment by user input, good for adjusting entire layouts (only uses triple digit numbers atm)"
@@ -566,6 +607,13 @@
 ;;---------;;
 ;;---------;;
 
+;; add change-inner package to do great things
+;; removed as it did not serve its purpose
+;;(require 'change-inner)
+;;(global-set-key (kbd "M-i") 'change-inner)
+;;(global-set-key (kbd "M-o") 'change-outer)
+
+
 (require 'browse-kill-ring)
 (global-set-key (kbd "C-c k") 'browse-kill-ring)
 
@@ -631,6 +679,9 @@
 (menu-bar-mode -1)
 (global-hi-lock-mode 1)
 
+;;encoding properly when pasting
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+
 ;;show matching braces
 ;;turn off the delay
 (setq show-paren-delay 0)
@@ -640,6 +691,7 @@
 ;;(setq-default tab-width 2)
 ;;(setq indent-line-function 'insert-tab)
 (setq js-indent-level 2)
+(setq pascal-indent-level 2)
 
 ;;NYAN-MODE!
 (when (display-graphic-p)
@@ -701,14 +753,14 @@
   (load-library "sql-indent"))
 
 (defun pretty-print-sgml-do-all ()
-    "change modes, pretty print, tab all"
-    (interactive)
-    (sgml-mode)
-    (sgml-pretty-print (point-min) (point-max))
-    (mark-whole-buffer)
-    (indent-for-tab-command)
-    (copy-whole-buffer)
-    (message "Prettified, Indented, and Copied whole buffer!"))
+  "change modes, pretty print, tab all"
+  (interactive)
+  (sgml-mode)
+  (sgml-pretty-print (point-min) (point-max))
+  (mark-whole-buffer)
+  (indent-for-tab-command)
+  (copy-whole-buffer)
+  (message "Prettified, Indented, and Copied whole buffer!"))
 
 ;; haskell mode/cabal repl
 (autoload 'ghc-init "ghc" nil t)
@@ -717,17 +769,17 @@
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 (eval-after-load 'haskell-mode '(progn
-  (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
-  (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
-  (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
-  (define-key haskell-mode-map (kbd "C-c C-n C-i") 'haskell-process-do-info)
-  (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
-  (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)))
+                                  (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
+                                  (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+                                  (define-key haskell-mode-map (kbd "C-c C-n C-t") 'haskell-process-do-type)
+                                  (define-key haskell-mode-map (kbd "C-c C-n C-i") 'haskell-process-do-info)
+                                  (define-key haskell-mode-map (kbd "C-c C-n C-c") 'haskell-process-cabal-build)
+                                  (define-key haskell-mode-map (kbd "C-c C-n c") 'haskell-process-cabal)))
 (eval-after-load 'haskell-cabal '(progn
-  (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
-  (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-ode-clear)
-  (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
-  (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
+                                   (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
+                                   (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-ode-clear)
+                                   (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
+                                   (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
 
 (custom-set-variables
  '(haskell-interactive-mode-hide-multi-line-errors nil)
