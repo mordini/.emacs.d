@@ -643,6 +643,10 @@
 (require 'helm)
 (require 'helm-config)
 
+(substitute-key-definition 'find-file 'helm-find-files (current-global-map))
+(substitute-key-definition 'execute-extended-command 'helm-M-x (current-global-map))
+(substitute-key-definition 'switch-to-buffer 'helm-mini (current-global-map))
+
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
 ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
