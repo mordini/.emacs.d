@@ -304,21 +304,32 @@
 ;;-----------;;
 ;;-----------;;
 
+(defun sort-words (reverse beg end)
+  "Sort words in region alphabetically, in REVERSE if negative.
+    Prefixed with negative \\[universal-argument], sorts in reverse.
+
+    The variable `sort-fold-case' determines whether alphabetic case
+    affects the sort order.
+
+    See `sort-regexp-fields'."
+  (interactive "*P\nr")
+  (sort-regexp-fields reverse "\\w+" "\\&" beg end))
+
 (defun align-repeat (start end regexp)
-    "Repeat alignment with respect to
+  "Repeat alignment with respect to
      the given regular expression."
-    (interactive "r\nsAlign regexp: ")
-    (align-regexp start end
-        (concat "\\(\\s-*\\)" regexp) 1 1 t))
+  (interactive "r\nsAlign regexp: ")
+  (align-regexp start end
+                (concat "\\(\\s-*\\)" regexp) 1 1 t))
 
 (defun change-outer (str)
   (interactive "sChange outer: ")
   (condition-case nil
       (search-backward str (line-beginning-position))
     (error (search-forward str (line-end-position))
-       (forward-char -1)))
+           (forward-char -1)))
   (kill-sexp)
-)
+  )
 
 ;; delete commas
 (defun delete-commas (str)
@@ -326,9 +337,9 @@
   (condition-case nil
       (search-backward str (line-beginning-position))
     (error (search-forward str (line-end-position))
-       (forward-char -1)))
+           (forward-char -1)))
   (kill-sexp)
-)
+  )
 
 
 (defun change-inner (str)
@@ -336,14 +347,14 @@
   (condition-case nil
       (search-backward str (line-beginning-position))
     (error (search-forward str (line-end-position))
-       (forward-char -1)))
+           (forward-char -1)))
   (push-mark)
   (forward-sexp)
   (forward-char -1)
   (exchange-point-and-mark)
   (forward-char 1)
   (kill-region (point) (mark))
-)
+  )
 
 ;;;WORK ON ME!
 (defun increment-numbers ()
