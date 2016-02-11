@@ -130,10 +130,6 @@
  '(magit-diff-use-overlays nil)
  '(magit-use-overlays nil)
  '(package-selected-packages (quote (auto-auto-indent)))
-;;;<<<<<<< HEAD
- '(temporary-file-directory "c:/Users/developer/AppData/Local/Temp/")
-;;;=======
-;;;>>>>>>> 1d1d6ac25e7b58062dacc5a92895788468578676
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
